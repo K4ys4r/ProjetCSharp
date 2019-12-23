@@ -8,15 +8,8 @@ namespace ProjetCSharp
 {
     static class Questions
     {
-        // on definit le chemin du fichier
         const string CHEMIN_FICHIER = @"..\QCM.txt";
 
-        //static public SortedList<int, List<string>> QuestionsQuiz { get; set; }
-        //static public SortedList<int, string> RéponsesQuestions { get; set; }
-        /// <summary>
-        /// Recupération des questions dans une liste
-        /// </summary>
-        /// <returns></returns>
         public static void ChargerQuestions(out SortedList<int, List<string>> QuestionsQuiz, out SortedList<int, string> RéponsesQuestions, out SortedList<int, string> OptionsRéponses)
         {
             QuestionsQuiz = new SortedList<int, List<string>>();

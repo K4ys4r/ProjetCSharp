@@ -25,7 +25,7 @@ namespace ProjetCSharp
             for (int i = 1; i < nombreQuestions + 1; i++)
             {
                 Console.Clear();
-                joueur.AfficherQuestion(i);
+                Console.WriteLine(joueur.AfficherQuestion(i));
                 Console.WriteLine("Veuillez choisir votre réponse parmis les options proposées ci-dessus.\nVotre reponse doit être en lettres majuscules.");
                 bool formatReponse = false;
 
@@ -43,15 +43,22 @@ namespace ProjetCSharp
                     }
                 }
             }
+            Stats joeurStat = new Stats(joueur);
+            joeurStat.EnregistrerRésultatsJoueur();
+            var données = joeurStat.GetTousStats();
+            var afficheStat = new AfficherStats(données);
+            Console.WriteLine(afficheStat.NombreDeJeux);
+            Console.WriteLine(afficheStat.ScoreMoyen);
 
-            string _erreur = string.Join(",", joueur.Erreurs.Select(n => n.ToString()).ToArray());
-
-            //Console.WriteLine(value: $"{joueur.Nom} a un score de {joueur.Score}/{nombreQuestions}, et a fait de erreur {_erreur} ");
+            // TODO: afficher les mauvaises reponses et le resultats
 
 
 
 
-            //Console.WriteLine($"\nLa Bonne Reponse est : {RéponsecQuestions[1]}");
+
+
+
+
 
 
         }
