@@ -25,11 +25,12 @@ namespace ProjetCSharp
 
                 string phrase = donnéesFichier[i];
                 string reponseQuestion=string.Empty;
+                List<string> listeQuestion = new List<string>();
 
                 if (phrase.Contains("Question"))
                 {
-                    var listQuestion = new List<string>();
-                    listQuestion.Add(phrase);
+                    listeQuestion = new List<string>();
+                    listeQuestion.Add(phrase);
                     reponseQuestion = string.Empty;
                 }
 
@@ -41,36 +42,26 @@ namespace ProjetCSharp
                     if (phrase[0] == '*')
                     {
                         reponseQuestion+=phrase[1];
+
+                        Console.WriteLine(phrase);
+                        Console.WriteLine(phrase.Remove(0,1));
+
                     }
+                    else
+                    {
+                        listeQuestion.Add(phrase);
+                    }
+
                 }
 
 
 
-                //if (phrase.Contains("*"))
-                //{
-                //    listQuestion.Add(phrase);
-                //}
-                //if (phrase.Length>0)
-                //{
-
-                //Console.WriteLine(phrase[0]);
-                //}
             }
 
             return _questions;
         }
 
 
-        //public static List<l> GetRelevésMensuels()
-        //{
-        //    var liste = new List<RelevéMensuel>();
-        //    var donnéesFichier = File.ReadAllLines(_CHEMIN_Fichier);
-        //    for (int i = 1; i < donnéesFichier.Length; i++)
-        //    {
-        //        liste.Add(new RelevéMensuel(donnéesFichier[i]));
-        //    }
-        //    return liste;
-        //}
 
 
     }
