@@ -6,6 +6,8 @@ namespace ProjetCSharp
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Bonjour,");
+            Console.WriteLine("Merci d'entrer votre nom :");
             ProjetCSharp.Questions.ChargerQuestions();
 
         }
