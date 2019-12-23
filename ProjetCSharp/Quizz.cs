@@ -43,7 +43,7 @@ namespace ProjetCSharp
             }
 
         }
-        public void TesterQuestion(string reponse, int i)//.................................parametre
+        public void TesterQuestion(string reponse, int i)
         {
             for (int j = 0; j < reponse.Length; j++)
             {
