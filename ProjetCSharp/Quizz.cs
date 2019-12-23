@@ -1,58 +1,67 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace ProjetCSharp
-    
+
 {
     class Quizz
     {
-        private string nom;
-        private string prenom;
-        private DateTime dateQuizz;
-        private int score;
-        private int[] tabErreur;
-        private string reponseTapee;
-        private string laBonneReponse;
-        private int nbrBonneReponse;
-        private int nbrMauvaiseReponse;
 
+        #region propriétés
 
-        public string Nom { get;}
-        public string Prenom { get;}
-        public DateTime DateQuizz { get;}
-        public int Score { get; }
-        public int[] TabErreur { get;}
+        private SortedList<int, List<string>> _questions;
+        private SortedList<int, string> _reponsesQuestions;
+        private SortedList<int, string> _optionsRéponses;
+        public string Nom { get; private set; }
+        public DateTime DateQuizz { get; private set; }
+        public int Score { get; private set; }
+        public List<int> Erreurs { get; private set; }
+        #endregion
 
-        public String ReponseTapee { get; }
-        public int NbrBonneReponse { get; }
-        public int NbrMauvaiseReponse { get; }
-
-        public Quizz(string nom, string prenom)
+        #region Constructeurs
+        public Quizz(string nom, SortedList<int, List<string>> questions, SortedList<int, string> reponses, SortedList<int, string> options)
         {
+            _questions = questions;
+            _reponsesQuestions = reponses;
+            _optionsRéponses = options;
+            Erreurs = new List<int>();
             Nom = nom;
-            this.prenom = prenom;
-        }
-
-        public void GetQuestion()
-        {
+            DateQuizz = DateTime.Now;
 
         }
-        public void TesterQuestion()//.................................parametre
+        #endregion
+
+        #region Methodes
+
+        public void AfficherQuestion(int i)
         {
-            if (reponseTapee == laBonneReponse)
+            foreach (var item in _questions[i])
             {
-                nbrBonneReponse++;
+                Console.WriteLine(item);
+            }
 
+        }
+        public void TesterQuestion(string reponse, int i)//.................................parametre
+        {
+            for (int j = 0; j < reponse.Length; j++)
+            {
+                    if (!_optionsRéponses[i].Contains(reponse[j]))
+                    {
+                        throw new FormatException("Le format de la réponse est incorrecte vous devez choisir des lettres parmis celles qui sont proposées");
+                    }
+            }
+            if (reponse == _reponsesQuestions[i])
+            {
+                Score++;
             }
             else
-                nbrMauvaiseReponse++;
+            {
+                Erreurs.Add(i);
+            }
         }
-        public void AfficherQuestion()//.................................parametre
-        {
-            
-        }
-
+        #endregion
 
     }
 
