@@ -24,10 +24,24 @@ namespace ProjetCSharp
             int _indQ = 0;
             string reponseQuestion = string.Empty;
             var donnéesFichier = File.ReadAllLines(CHEMIN_FICHIER);
-            int i = 0;
-            do
+
+            for (int i = 0; i < donnéesFichier.Length; i++)
             {
                 string phrase = donnéesFichier[i];
+
+                if (phrase.Contains("Question"))
+                {
+                    if (listeQuestion.Count() > 0)
+                    {
+                        QuestionsQuiz.Add(_indQ, listeQuestion);
+                        RéponsesQuestions.Add(_indQ, reponseQuestion);
+                    }
+                    _indQ++;
+                    listeQuestion = new List<string>();
+                    listeQuestion.Add(phrase);
+                    reponseQuestion = string.Empty;
+                }
+
                 if (phrase.Length > 0 && phrase[0] != 'Q' &&
                     (phrase[0] >= 65 && phrase[0] <= 90 || phrase[0] == '*')
                     )
@@ -42,58 +56,10 @@ namespace ProjetCSharp
                         listeQuestion.Add(phrase);
                     }
                 }
-                if (phrase.Contains("Question"))
-                {
-                    if (listeQuestion.Count() > 0)
-                    {
-                        QuestionsQuiz.Add(_indQ, listeQuestion);
-                        RéponsesQuestions.Add(_indQ, reponseQuestion);
-                    }
-                    _indQ++;
-                    listeQuestion = new List<string>();
-                    listeQuestion.Add(phrase);
-                    reponseQuestion = string.Empty;
-                }
-                i++;
-            } while (i< donnéesFichier.Length);
 
-
-            //for (int i = 0; i < donnéesFichier.Length+1; i++)
-            //{
-            //    string phrase = donnéesFichier[i];
-
-
-
-            //    if (phrase.Length > 0 && phrase[0] != 'Q' &&
-            //        (phrase[0] >= 65 && phrase[0] <= 90 || phrase[0] == '*')
-            //        )
-            //    {
-            //        if (phrase[0] == '*')
-            //        {
-            //            reponseQuestion += phrase[1];
-            //            listeQuestion.Add(phrase.Remove(0, 1));
-            //        }
-            //        else
-            //        {
-            //            listeQuestion.Add(phrase);
-            //        }
-            //    }
-            //    if (phrase.Contains("Question"))
-            //    {
-            //        if (listeQuestion.Count() > 0)
-            //        {
-            //            QuestionsQuiz.Add(_indQ, listeQuestion);
-            //            RéponsesQuestions.Add(_indQ, reponseQuestion);
-            //        }
-            //        _indQ++;
-            //        listeQuestion = new List<string>();
-            //        listeQuestion.Add(phrase);
-            //        reponseQuestion = string.Empty;
-            //    }
-
-
-            //}
-
+            }
+            QuestionsQuiz.Add(_indQ, listeQuestion);
+            RéponsesQuestions.Add(_indQ, reponseQuestion);
         }
 
 

@@ -7,12 +7,15 @@ namespace ProjetCSharp
     {
         static void Main(string[] args)
         {
-            Questions.ChargerQuestions(out SortedList<int, List<string>> QuestionsQuiz, out SortedList<int, string> RéponsecQuestions);
-            //foreach (var item in RéponsecQuestions)
-            //{
-            //    Console.WriteLine($"{item.Key } : {item.Value}");
+            var QuestionsQuiz = new SortedList<int, List<string>>();
+            SortedList<int, string> RéponsecQuestions = new SortedList<int, string>();
+            Questions.ChargerQuestions(out QuestionsQuiz, out RéponsecQuestions);
+            //Questions.ChargerQuestions(out var QuestionsQuiz, out var RéponsecQuestions);
 
-            //}
+
+
+
+
             for (int i = 1; i <= RéponsecQuestions.Count; i++)
             {
                 foreach ( var item in QuestionsQuiz[i])
@@ -20,8 +23,8 @@ namespace ProjetCSharp
                     Console.WriteLine(item);
                 }
 
+            Console.WriteLine($"\nLa Bonne Reponse est : {RéponsecQuestions[i]}");
             }
-            //Console.WriteLine($"\nLa Bonne Reponse est : {RéponsecQuestions[1]}");
            
         }
     }
