@@ -17,9 +17,9 @@ namespace ProjetCSharp
         public QuestionQCM(string question,string réponse,string option,int n)
         {
             Numéro = n;
-            TextQuestion = question;
-            RéponseQuestion = réponse;
-            PossibilitésRéponse = option;
+            TextQuestion = string.Empty;
+            RéponseQuestion = string.Empty;
+            PossibilitésRéponse = string.Empty;
         }
         /// <summary>
         /// Afficher la question
