@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -30,17 +31,21 @@ namespace ProjetCSharp
         public Joueur(string stat)
         {
             string[] infoJoueur = stat.Split('\t');
-            DateQuizz = DateTime.Parse(infoJoueur[0]);
+            var _date = infoJoueur[0].Split('-').Select(int.Parse).ToArray();
+            DateQuizz = new DateTime(_date[0], _date[1], _date[2]);
             Nom = infoJoueur[1];
             var _score = infoJoueur[2].Split('/').Select(int.Parse).ToArray();
             Score = _score[0];
+            NombreQuestions = _score[1];
             Erreurs = infoJoueur[3].Split(',').Select(int.Parse).ToList();
-            NombreQuestions = Score + Erreurs.Count;
         }
 
         public void TesterRéponse(string reponse, QuestionQCM question)
         {
-            NombreQuestions++;
+            if (reponse.Length == 0)
+            {
+                throw new FormatException("Le format de la réponse est incorrecte vous devez choisir des lettres parmis celles qui sont proposées");
+            }
             for (int i = 0; i < reponse.Length; i++)
             {
                 if (!question.PossibilitésRéponse.Contains(reponse[i]))
@@ -48,15 +53,16 @@ namespace ProjetCSharp
                     throw new FormatException("Le format de la réponse est incorrecte vous devez choisir des lettres parmis celles qui sont proposées");
                 }
             }
-            if (reponse == question.RéponseQuestion)
+            if (string.Concat(reponse.OrderBy(c => c)) == question.RéponseQuestion)
             {
+                NombreQuestions++;
                 Score++;
             }
             else
             {
+                NombreQuestions++;
                 Erreurs.Add(question.Numéro);
             }
-
         }
 
         public override string ToString()

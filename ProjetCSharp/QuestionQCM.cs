@@ -4,16 +4,16 @@ namespace ProjetCSharp
     public class QuestionQCM
     {
         public int Numéro { get; private set; }
-        public string TextQuestion { get; private set; }
-        public string PossibilitésRéponse { get; private set; }
-        public string RéponseQuestion { get; private set; }
+        public string TextQuestion { get; set; }
+        public string PossibilitésRéponse { get; set; }
+        public string RéponseQuestion { get; set; }
 
-        public QuestionQCM(string question,string réponse,string option,int n)
+        public QuestionQCM(int n)
         {
             Numéro = n;
-            TextQuestion = question;
-            RéponseQuestion = réponse;
-            PossibilitésRéponse = option;
+            TextQuestion = string.Empty;
+            RéponseQuestion = string.Empty;
+            PossibilitésRéponse = string.Empty;
         }
 
         public override string ToString()

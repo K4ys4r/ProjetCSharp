@@ -6,7 +6,7 @@ namespace ProjetCSharp
 {
     static class QuestionsQuizz
     {
-        private const string CHEMIN_FICHIER = @"../../../QCM1.txt";
+        private const string CHEMIN_FICHIER = @"..\..\..\QCM.txt";
 
         public static List<QuestionQCM> GetQuestions()
         {
@@ -25,9 +25,9 @@ namespace ProjetCSharp
                 if (phrase.Contains("Question"))
                 {
                     _indQ++;
-                    questionText += phrase + '\n';
-                    réponseQuestion = string.Empty;
-                    optionRéponse = string.Empty;
+                    QuestionQCM q = new QuestionQCM(_indQ);
+                    liste.Add(q);
+                    liste[_indQ - 1].TextQuestion += phrase + '\n';
                 }
 
                 if (phrase.Length > 0 && phrase[0] != 'Q' &&
@@ -36,23 +36,16 @@ namespace ProjetCSharp
                 {
                     if (phrase[0] == '*')
                     {
-                        réponseQuestion += phrase[1];
-                        optionRéponse += phrase[1];
-                        questionText += phrase.Substring(1) + '\n';
+                        liste[_indQ - 1].TextQuestion += phrase.Substring(1) + '\n';
+                        liste[_indQ - 1].RéponseQuestion += phrase[1];
+                        liste[_indQ - 1].PossibilitésRéponse += phrase[1];
                     }
                     else
                     {
-                        optionRéponse += phrase[0];
-                        questionText += phrase + '\n';
+                        liste[_indQ - 1].TextQuestion += phrase + '\n';
+                        liste[_indQ - 1].PossibilitésRéponse += phrase[0];
                     }
                 }
-
-                if (donnéesFichier[i] == string.Empty)
-                {
-                    QuestionQCM q = new QuestionQCM(questionText, réponseQuestion, optionRéponse, _indQ);
-                    liste.Add(q);
-                }
-
             }
             return liste;
         }
