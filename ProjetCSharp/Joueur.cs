@@ -6,19 +6,23 @@ namespace ProjetCSharp
 {
     public class Joueur
     {
-        public string Nom { get; private set; }
-        public DateTime DateQuizz { get; private set; }
-        public int Score { get; set; }
-        public List<int> Erreurs { get; private set; }
-        public int NombreQuestions { get; private set; }
+        public string Nom { get; private set; } //Propriétés Nom du joueur 
+        public DateTime DateQuizz { get; private set; } //Propriétés Date du quizz
+        public int Score { get; set; }//Propriétés Score du joueur 
+        public List<int> Erreurs { get; private set; } //Propriétés liste des erreurs ( indices des questions )
+        public int NombreQuestions { get; private set; } //Propriétés nombre de question
         public string Resultat
         {
             get
             {
-                return $"{Score}/{NombreQuestions}";
+                return $"{Score}/{NombreQuestions}"; // C'est une propriété nous renvoyant une information
             }
         }
-
+        /// <summary>
+        /// Le constructeur est appelé lors du debut du quizz
+        /// </summary>
+        /// <param Nom du joueur="nom"></param>
+        /// <param Date du quizz="date"></param>
         public Joueur(string nom, DateTime date)
         {
             Nom = nom;
@@ -26,7 +30,10 @@ namespace ProjetCSharp
             Erreurs = new List<int>();
             NombreQuestions = 0;
         }
-
+        /// <summary>
+        /// Constructeur appelé lors des affichage des statistiques des joueurs
+        /// </summary>
+        /// <param ligne resumant les informations du joueur et ses statistiques ="stat"></param>
         public Joueur(string stat)
         {
             string[] infoJoueur = stat.Split('\t');
@@ -37,7 +44,11 @@ namespace ProjetCSharp
             Erreurs = infoJoueur[3].Split(',').Select(int.Parse).ToList();
             NombreQuestions = Score + Erreurs.Count;
         }
-
+        /// <summary>
+        /// Methode prenant en parametre les reponses du joueur 
+        /// </summary>
+        /// <param La reponse du joueur="reponse"></param>
+        /// <param Liste des questions ="question"></param>
         public void TesterRéponse(string reponse, QuestionQCM question)
         {
             NombreQuestions++;
@@ -58,7 +69,10 @@ namespace ProjetCSharp
             }
 
         }
-
+        /// <summary>
+        /// Affichage des statistiques du joueur
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             string _erreurs = string.Join(",", Erreurs.Select(n => n.ToString()).ToArray());
